@@ -31,6 +31,10 @@ def _jenkins_api(jenkins_url=None, command=None, args=None, kwargs=None):
         result['msg'] = e.message
         return result
 
+    if result[command] is False:
+        result['msg'] = 'failed'
+        return result
+
     result['changed'] = True
     result['failed'] = False
     result['rc'] = 0
