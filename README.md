@@ -37,6 +37,8 @@ passed in as parameters) is always nice for users too:
       tasks:
         - jenkins_credentials:
             jenkins_url: https://jenkins.mycompany.com/
+            jenkins_username: mylogin
+            jenkins_password: mypassword_or_token
             name: github-https
             cls: com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl
             args:

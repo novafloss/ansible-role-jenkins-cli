@@ -4,7 +4,7 @@ from ansible.module_utils.basic import *
 import jenkins
 
 
-def _jenkins_api(jenkins_url=None, command=None, args=None, kwargs=None):
+def _jenkins_api(jenkins_url=None, jenkins_username=None, jenkins_password=None, command=None, args=None, kwargs=None):
 
     result = {
         'cmd': '{} {} {}'.format(jenkins_url, args, kwargs),
@@ -14,7 +14,7 @@ def _jenkins_api(jenkins_url=None, command=None, args=None, kwargs=None):
         'rc': 1
     }
 
-    server = jenkins.Jenkins(jenkins_url)
+    server = jenkins.Jenkins(jenkins_url, jenkins_username, jenkins_password)
 
     if not hasattr(server, command):
         result['msg'] = 'Unknown command: {}'.format(command)
@@ -43,6 +43,8 @@ if __name__ == '__main__':
     module = AnsibleModule(
         argument_spec={
             'jenkins_url': {'required': True},
+            'jenkins_username': {'required': False},
+            'jenkins_password': {'required': False},
             'command': {'required': True},
             'args': {'required': False, 'type': 'list'},
             'kwargs': {'required': False, 'type': 'dict'},
